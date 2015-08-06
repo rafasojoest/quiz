@@ -1,9 +1,53 @@
 
+<script>
+   function rellenarvariables(valor,i){
+      
+      var introducido = document.getElementById("respuesta" + i).value;
+	  
+	  var res = "N";
+	  
+	  if (valor == introducido){
+	   
+	     res = "S";
+	  }
+	
+	  document.getElementById("correcto" ).value=res;
+   
+   }
 
-		  <form method="get" action="/quizes/answer">
-		     Pregunta: <%= pregunta %>
-			 <input type="text" name="respuesta" value="Responda aqui"/>
-			 <input type="submit"  value="Enviar"/>
+</script>
+		 
+
+
+
+		 <form method="get" action="/quizes/answer">
+		     Preguntas:
+		     <table>
+				<% var i; for(i=0; i<quiz.length; i++) {%>
+				<tr>
+				   <td>
+				    
+		              <%= quiz[i].pregunta %>
+				   </td>	
+				   <td>
+			           <input type="text" name="respuesta<%= i %>" id="respuesta<%= i %>"/>
+				   </td>	
+				   <td>
+			           <input type="submit"  value="Enviar" onclick="rellenarvariables('<%= quiz[i].respuesta %>','<%= i %>');"/>
+				   </td>
+				   
+				</tr> 
+              <% } %>				
+			 </table>
+			 <input type="hidden"  name="correcto" id="correcto"/>
+				  
+			 
+		  </form>
+		  
+		  <form method="get" action="/quizes">
+		      Filtro: 
+			 <input type="text" name="search" />
+			 <input type="submit"  value="Filtrar"/>
 		  </form>
 
   
